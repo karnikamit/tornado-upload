@@ -15,7 +15,7 @@ def download_file():
     do = Download(path)
     try:
         do.download_file()
-        return jsonify({"response": "success"})
+        return jsonify({"response": "success", "msg": "file successfully downloaded."})
     except Exception, e:
         return jsonify({"response": "failure", "msg": str(e)})
 
