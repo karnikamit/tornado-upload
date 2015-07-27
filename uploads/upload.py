@@ -1,13 +1,10 @@
-import tornado.httpserver, tornado.ioloop, tornado.options, tornado.web, os.path, random, string
-from tornado.options import define, options
 
-define("port", default=8888, help="run on the given port", type=int)
 
 class Application(tornado.web.Application):
     def __init__(self):
         handlers = [
             (r"/", IndexHandler),
-            (r"/upload", UploadHandler)
+            (r"/templates", UploadHandler)
         ]
         tornado.web.Application.__init__(self, handlers)
         
@@ -25,11 +22,4 @@ class UploadHandler(tornado.web.RequestHandler):
         output_file = open("uploads/" + final_filename, 'w')
         output_file.write(file1['body'])
         self.finish("file" + final_filename + " is uploaded")
-        
-def main():
-    http_server = tornado.httpserver.HTTPServer(Application())
-    http_server.listen(options.port)
-    tornado.ioloop.IOLoop.instance().start()
-    
-if __name__ == "__main__":
-    main()
+
