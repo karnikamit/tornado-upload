@@ -4,14 +4,15 @@ from routes import app
 from Downloads.download import Download
 
 
-@app.route('/try', methods=["GET"])
+@app.route('/try', methods=["POST"])
 def api_try():
-    return jsonify({"response": "success"})
+    data = request.json
+    return jsonify(data)
 
 
 @app.route('/get_file', methods=["POST", "GET"])
 def download_file():
-    path = request.json
+    path = request.form['path']
     do = Download(path)
     try:
         do.download_file()
